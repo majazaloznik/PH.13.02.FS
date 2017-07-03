@@ -1,0 +1,21 @@
+
+Living arrangments of older people based on census microdata.
+
+Old age is over 60. 
+PERWT is used to get counts in each group. 
+
+Nuclear family is RELATE is subset of 1,2,3. So spouse or unmarried spouse
+and also child or stepchild or adopted child. (4 are all other relations and 5 are non relatives)
+
+1. alone, not alone
+
+2. alone M/F (fig.3.3)
+
+3. with /without spouse
+
+4. HH composition: single, nuclear, extended, complex
+(https://unstats.un.org/unsd/demographic/sconcerns/fam/fammethods.htm)
+
+Nuclear family is defined as couple w/wo unmarried children. so need to 
+get unmarried? but if the child's partner lives with them that' already extended, so don't need to worry. 
+

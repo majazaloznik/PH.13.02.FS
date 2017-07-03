@@ -1,10 +1,7 @@
 ###############################################################################
-
-
 library(sqldf)
 library(dplyr)
 library(tidyr)
-library(RColorBrewer)
 source("scripts/02-myfunctions.R")
 
 ###############################################################################
@@ -108,6 +105,7 @@ rm(years, subregions, regions)
 
 
 country.codes %>%  arrange(regions, subregions)
+
 # IMPORT - ONE OFF
 ###############################################################################
 # # split file into 20 (actually had to do this in two sets, because of some
@@ -134,27 +132,11 @@ country.codes %>%  arrange(regions, subregions)
 ###############################################################################
 # add generation number from lookup table, as well as labels for relationships
 # then binary for old/young
+# then group into HH and calculate n. of generations for
+# hh. size and two different types of households. 
+# finally summarise proportions for each of the types of HHs
+# do this one country at a time,because the large df is really large
 
-# group into HH and calculate n. of generations
-# hh. size
+# now save all 44 tables 
 
-FunNewVars(i = 18) -> full.df
-table(full.df$RELATE)
-FunSummarize(full.df, dplyr::quo(hh.type))
-FunSummarize(full.df, dplyr::quo(hh.type4))
-
-x.sum1  %>% 
-  unite(category, old, SEX) %>% 
-    select(-count) %>% 
-    spread(category, prop) -> x.heights
-
-x.sum1  %>% 
-  unite(category, old, SEX) %>% 
-  select(-prop) %>% 
-  group_by(category) %>% 
-  summarise(sum = sum(count))-> x.widths
-
-barplot(as.matrix(x.heights[,2:5]) , 
-        width = x.widths[[2]], 
-        legend.text = x.heights[[1]],
-        col = brewer.pal(7, "Dark2"))
+FunComplete(nrow(country.codes))

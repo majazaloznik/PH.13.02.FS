@@ -1,10 +1,9 @@
-
-
-
 ###############################################################################
 # 1 FunSkippedGen
 # 2 FunNumberGens
-# 3 FunSummarize (uses 1. and 2. )
+# 3 FunNewVars uses 1. and 2. to calculate new vars
+# 4 FunSummarize uses full df from 4 and picks grouping variable. 
+# 5 FunComplete takes all of the above and executes for eachcountry
 ###############################################################################
 
 
@@ -37,8 +36,9 @@ FunNumberGens <- function(test){
 
 
 ###############################################################################
-# FunSummarize
+# FunNewVars
 # open i-th country table and summarise hh type by gender/age group
+# as well as the total national proprotions
 ###############################################################################
 
 FunNewVars <- function(i){
@@ -72,7 +72,27 @@ FunNewVars <- function(i){
 FunSummarize <- function(full.df, group.v) {
   full.df %>% 
     group_by(old, SEX, !!group.v) %>% 
-    summarise(count = n(), w.count = sum(PERWT))  %>% 
-    mutate(prop = count/sum(count), w.prop = w.count/sum(w.count))   
+    summarise( w.count = sum(PERWT))   %>% 
+    unite(group, old,SEX) %>% 
+    spread(key = group, value = w.count) %>% 
+    mutate(total = rowSums(.[2:5])) %>% 
+    gather(key=group, value = count, 2:6) %>% 
+    group_by(group) %>% 
+    mutate(prop = count/sum(count))
 }
 
+
+
+FunComplete <- function(n) {
+  for (i in 1:n){
+  FunNewVars(i = i) -> full.df
+  assign(paste0(country.codes[i,2], ".hh.gen"), 
+         FunSummarize(full.df, dplyr::quo(hh.type)), pos = 1)
+  assign(paste0(country.codes[i,2], ".hh.un"), 
+         FunSummarize(full.df, dplyr::quo(hh.type4)), pos = 1)
+  write.csv(eval(as.name(paste0(country.codes[i,2], ".hh.gen"))), 
+            file = paste0("data/", country.codes[i,2],".hh.gen.csv"), row.names = FALSE)
+  write.csv(eval(as.name(paste0(country.codes[i,2], ".hh.un"))), 
+            file = paste0("data/", country.codes[i,2],".hh.un.csv"), row.names = FALSE)
+  }
+}

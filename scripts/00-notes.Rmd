@@ -1,8 +1,13 @@
 
 Living arrangments of older people based on census microdata.
 
+HH composition and intergenerational HH types 
+
+These are "proportions of individuals (of certain age and gender) living in
+a specific type of household. Not proportions of households. And these are not 'elderly headed households' as is sometimes reported. these are e.g. all old men,what type of HH do they live in.
+
 Old age is over 60. 
-PERWT is used to get counts in each group. 
+PERWT is used to get counts in each group. if weights exist they are used. 
 
 Nuclear family is RELATE is subset of 1,2,3. So spouse or unmarried spouse
 and also child or stepchild or adopted child. (4 are all other relations and 5 are non relatives)
@@ -11,11 +16,12 @@ and also child or stepchild or adopted child. (4 are all other relations and 5 a
 
 2. alone M/F (fig.3.3)
 
-3. with /without spouse
+3. with /without spouse - i've not downloaded marital status data.. do i want 
+to be bothered?
 
 4. HH composition: single, nuclear, extended, complex
 (https://unstats.un.org/unsd/demographic/sconcerns/fam/fammethods.htm)
 
 Nuclear family is defined as couple w/wo unmarried children. so need to 
-get unmarried? but if the child's partner lives with them that' already extended, so don't need to worry. 
+get unmarried? but if the child's partner lives with them that' already extended, so don't need to worry. So techincally theseare couple (single parent) living with unmarried children (or rather children without their partners).i.e. if the child is married but their spouse doesn't live in the household, then it counts as a nuclear family. the child could be widowed, married living apart etc. but not havechildren (grandchildren) 
 

@@ -1,4 +1,4 @@
-
+ 
 Living arrangments of older people based on census microdata.
 
 HH composition and intergenerational HH types 

@@ -4,6 +4,8 @@
 # 3 FunNewVars uses 1. and 2. to calculate new vars
 # 4 FunSummarize uses full df from 4 and picks grouping variable. 
 # 5 FunComplete takes all of the above and executes for eachcountry
+# 6 FunPlot7
+# 7 FunPlot4
 ###############################################################################
 
 
@@ -74,15 +76,14 @@ FunSummarize <- function(full.df, group.v) {
     group_by(old, SEX, !!group.v) %>% 
     summarise( w.count = sum(PERWT))   %>% 
     unite(group, old,SEX) %>% 
-    spread(key = group, value = w.count) %>% 
+    spread(key = group, value = w.count, fill = 0) %>% 
     mutate(total = rowSums(.[2:5])) %>% 
     gather(key=group, value = count, 2:6) %>% 
     group_by(group) %>% 
     mutate(prop = count/sum(count))
 }
 
-
-
+i = 19
 FunComplete <- function(n) {
   for (i in 1:n){
   FunNewVars(i = i) -> full.df
@@ -95,4 +96,108 @@ FunComplete <- function(n) {
   write.csv(eval(as.name(paste0(country.codes[i,2], ".hh.un"))), 
             file = paste0("data/", country.codes[i,2],".hh.un.csv"), row.names = FALSE)
   }
+}
+
+
+###############################################################################
+# FunPlot7
+# plot for intergenerational data
+###############################################################################
+
+FunPlot7 <- function(i) {
+  hh.gen <- data.frame(code = c(1,2,3,4,4,4,5),
+                       type = c("single",  "one gen", "two gen", "three gen",
+                                "four gen", "five gen", "skipped"))
+
+  df7 <- read.csv(paste0("data/", country.codes[i,2],".hh.gen.csv"))
+  bars7 <- spread(select(df7, - count), group, prop)[1:4] %>% 
+    left_join(hh.gen, c("hh.type" = "type")) %>% 
+    arrange(code) %>% 
+    group_by(code) %>% 
+    summarise(old_male = sum(old_male),
+              old_female = sum(old_female),
+              total = sum(total))
+  
+  widths <- df7 %>%group_by(group) %>%  
+    summarise(width = sum(count)) %>% 
+    .[2:1, 1:2]
+  background7 <- c(0, unlist(cumsum(bars7[4])))
+  
+  x<-barplot(as.matrix(bars7[2:3]),
+             col = palette7, 
+             width = pull(widths, 2),
+             space = 1.3, 
+             axes = FALSE,
+             names.arg = c(NA,NA))
+  text(x, y=-0.05, c("A", "B"))
+  rect(rep(par("usr")[1]*1.2, 5), background7[1:5], 
+       rep(par("usr")[2]*0.9, 5), 
+       background7[2:6],
+       border = "white", lwd = 1,
+       col =    palette7)
+  
+  rect(rep(par("usr")[1]*1.2, 5), background7[1:5], 
+       rep(par("usr")[2]*0.9, 5), 
+       background7[2:6],
+       col = "white", density = 20, angle = 30, lwd = 3, border =NA)
+  
+  barplot(as.matrix(bars7[2:3]),
+          col = palette7, 
+          width = pull(widths, 2),
+          space = 1.3, add = TRUE,
+          axes = FALSE,
+          names.arg = c(NA,NA))
+  axis(2, labels = rep(NA,6))
+  midpoints7 <- (cumsum(pull(bars7,3)) - lag(cumsum(pull(bars7,3)), default = 0))/2 + 
+    lag(cumsum(pull(bars7,3)), default = 0)
+  
+  text(rep(par("usr")[2], 5), midpoints7, letters[1:5])
+}
+
+###############################################################################
+# FunPlot4
+# plot for family data
+###############################################################################
+
+FunPlot4 <- function(i) {
+  hh.un <- data.frame(code = c(1:4),
+                      type = c("single",  "nuclear", 
+                               "extended", "complex"))
+  df4 <- read.csv(paste0("data/", country.codes[i,2],".hh.un.csv"))
+  bars4 <- spread(select(df4, - count), group, prop)[1:4] %>% 
+    left_join(hh.un, c("hh.type4" = "type")) %>% 
+    arrange(code) 
+  widths <- df4 %>%group_by(group) %>%  
+    summarise(width = sum(count)) %>% 
+    .[2:1, 1:2]
+  background4 <- c(0, unlist(cumsum(bars4[4])))
+  
+  x <- barplot(as.matrix(bars4[3:2]),
+          col = palette4, 
+          width = pull(widths, 2),
+          space = 1.3,
+          axes = FALSE,
+          names.arg = c(NA,NA))
+  text(x, y=-0.05, c("A", "B"))
+  
+  rect(rep(par("usr")[1]*1.2, 4), background4[1:4], rep(par("usr")[2]*0.9, 4), 
+       background4[2:5],
+       border = "white", lwd = 1,
+       col =    palette4)
+  
+  rect(rep(par("usr")[1]*1.2, 4), background4[1:4], rep(par("usr")[2]*0.9, 4), 
+       background4[2:5],
+       col = "white", density = 20, angle = 30, lwd = 3, border =NA)
+  
+  barplot(as.matrix(bars4[3:2]),
+          col = palette4, 
+          width = pull(widths, 2),
+          space = 1.3, add = TRUE,
+          axes = FALSE,
+          names.arg = c(NA,NA))
+  axis(4, labels = c(5,6,7,8,9,0), at = seq(0,1,0.2), las = 2, hadj = -1.4)
+  midpoints4 <- (cumsum(pull(bars4,3)) - lag(cumsum(pull(bars4,3)), default = 0))/2 + 
+    lag(cumsum(pull(bars4,3)), default = 0)
+  
+  text(rep(par("usr")[1], 6), midpoints4, bars4[[5]])
 }

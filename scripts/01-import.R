@@ -1,3 +1,4 @@
+## only run one time
 ###############################################################################
 library(sqldf)
 library(dplyr)
@@ -138,5 +139,6 @@ country.codes %>%  arrange(regions, subregions)
 # do this one country at a time,because the large df is really large
 
 # now save all 44 tables 
+# FunComplete(nrow(country.codes))
 
-FunComplete(nrow(country.codes))
+write.csv(country.codes, "data/country.codes.csv", row.names = FALSE)

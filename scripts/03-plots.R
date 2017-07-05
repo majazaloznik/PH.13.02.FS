@@ -1,19 +1,35 @@
+# prleiminaries
+###############################################################################
 library(RColorBrewer)
+source("scripts/02-myfunctions.R")
+country.codes  <- read.csv("data/country.codes.csv")
 
 
+## some labeling lookup tables and colour palates
 
-x.sum1  %>% 
-  unite(category, old, SEX) %>% 
-  select(-count) %>% 
-  spread(category, prop) -> x.heights
+palette7 <- c("lightpink", "chartreuse4", "olivedrab2",
+              "steelblue1", #"violetred3",
+              "orangered1" )
+palette4 <- c("lightpink",
+              "springgreen3",
+              "yellow",
+              "goldenrod1")
 
-x.sum1  %>% 
-  unite(category, old, SEX) %>% 
-  select(-prop) %>% 
-  group_by(category) %>% 
-  summarise(sum = sum(count))-> x.widths
+###############################################################################
 
-barplot(as.matrix(x.heights[,2:5]) , 
-        width = x.widths[[2]], 
-        legend.text = x.heights[[1]],
-        col = brewer.pal(7, "Dark2"))
+height = 5.5 
+width = 10 
+layout(matrix(c(1,2), nrow = 1))
+
+FunFinalPlot <- function(i) {
+  par(mar = c(2,8,0.8, 2))
+  FunPlot4(i)
+  par(mar = c(2,2,0.8, 8))
+  FunPlot7(i)
+  dev.copy2eps(file=paste0("figures/",country.codes[i,2], ".eps"), height=height, width=width)
+}
+
+FunFinalPlot(2)
+lapply(1:22, function(x) FunFinalPlot(x))
+
+

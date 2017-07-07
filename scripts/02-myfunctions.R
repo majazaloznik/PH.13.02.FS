@@ -129,7 +129,7 @@ FunPlot7 <- function(i) {
              space = 1.3, 
              axes = FALSE,
              names.arg = c(NA,NA))
-  text(x, y=-0.05, c("A", "B"))
+  text(x, y=-0.07, c("A", "B"))
   rect(rep(par("usr")[1]*1.2, 5), background7[1:5], 
        rep(par("usr")[2]*0.9, 5), 
        background7[2:6],
@@ -178,7 +178,7 @@ FunPlot4 <- function(i) {
           space = 1.3,
           axes = FALSE,
           names.arg = c(NA,NA))
-  text(x, y=-0.05, c("A", "B"))
+  text(x, y=-0.07, c("A", "B"))
   
   rect(rep(par("usr")[1]*1.2, 4), background4[1:4], rep(par("usr")[2]*0.9, 4), 
        background4[2:5],
@@ -201,3 +201,4 @@ FunPlot4 <- function(i) {
   
   text(rep(par("usr")[1], 6), midpoints4, bars4[[5]])
 }
+

@@ -83,7 +83,7 @@ FunSummarize <- function(full.df, group.v) {
     mutate(prop = count/sum(count))
 }
 
-i = 19
+
 FunComplete <- function(n) {
   for (i in 1:n){
   FunNewVars(i = i) -> full.df

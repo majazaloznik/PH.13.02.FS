@@ -18,6 +18,8 @@ palette4 <- c("lightpink",
               "goldenrod1")
 
 ###############################################################################
+## PLOTS
+###############################################################################
 
 height = 5.5
 width = 10 
@@ -35,24 +37,9 @@ FunFinalPlot <- function(i) {
 # ALL 22 PLOTS
 lapply(1:22, function(x) FunFinalPlot(x))
 
-# PROPORTION MALE/FEMALE
-
-FunProps <- function(i) {
-  df <- read.csv(paste0("data/", country.codes[i,2],".hh.un.csv"))
-  df %>%  
-    group_by(group) %>% 
-    summarise(sum=sum(count)) %>% 
-    ungroup() %>% 
-    filter(group != "total") %>% 
-    mutate(prop = sum/sum(sum)) %>% 
-    pull(3) %>% 
-    .[1:2]
-}
-
-props <- sapply(1:22, function(x) FunProps(x))
-cbind(country.codes, t(props))
-
+###############################################################################
 ## LEGENDS
+###############################################################################
 height = 6.5 
 width = 10 
 # legend 4
@@ -85,7 +72,7 @@ text(rep(par("usr")[2], 4), 0.5*(seq(0,1,0.25) + lag(seq(0,1,0.25)))[2:5], 1:4)
 
 dev.copy2eps(file="figures/legend1.eps", height=height, width=width)
 
-
+###############################################################################
 ## legend 5x
 layout(matrix(c(1,2), nrow = 1))
 par(mar = c(1,4.5,3, 7))
@@ -116,3 +103,23 @@ text(rep(par("usr")[2], 5), 0.5*(seq(0,1,0.2) + lag(seq(0,1,0.2)))[2:6], LETTERS
 
 text(par("usr")[1]*2, 1.05, "Z")
 dev.copy2eps(file="figures/legend2.eps", height=height, width=width)
+
+###############################################################################
+# PROPORTION MALE/FEMALE and N total
+###############################################################################
+
+i = 2
+FunProps <- function(i) {
+  df <- read.csv(paste0("data/", country.codes[i,3],".hh.un.csv"))
+  df %>%  
+    group_by(group) %>% 
+    summarise(sum=sum(count)) %>% 
+    ungroup() %>% 
+    mutate(prop = 2*sum/sum(as.numeric(sum))) %>% 
+    unlist() %>% 
+    .[c(8,11,12)]
+}
+
+props <- sapply(1:22, function(x) FunProps(x))
+cbind(country.codes, t(props))
+

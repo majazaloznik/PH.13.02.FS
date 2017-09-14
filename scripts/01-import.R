@@ -66,7 +66,7 @@ source("scripts/02-myfunctions.R")
 #                 "SAF",
 #                 "NAM")
 # 
-# regions <- c("AS", 
+# regions <- c("AS",
 #              "EU",
 #              "AF",
 #              "AM",
@@ -89,14 +89,14 @@ source("scripts/02-myfunctions.R")
 #              "AF",
 #              "AM"
 #              )
-###############################################################################
-# IMPORT - setup
-###############################################################################
-# # from the ipoms codebook impums_00006.cbk, manually copy/pasted the 
+# ##############################################################################
+# ## IMPORT - setup
+# ##############################################################################
+# # from the ipoms codebook impums_00006.cbk, manually copy/pasted the
 # # codes for RELATED and in the spreadsheet manually added generation signifiers
 # # import lookup tables for relationships and country codes (these were generated manually from the codebook)
 # rel.codes <- read.csv("data/relationship-codes.csv")
-# country.codes <- read.csv("data/country.codes.csv")
+# country.codes <- read.csv("data/countrycodes.csv")
 # country.codes$country <- as.character(country.codes$country)
 # country.codes$year <- years
 # country.codes$subregions <- subregions
@@ -104,8 +104,8 @@ source("scripts/02-myfunctions.R")
 # rm(years, subregions, regions)
 # 
 # 
-# write.csv(country.codes, "data/country.codes.csv")
-
+# write.csv(country.codes, "data/country.codes.csv", row.names = FALSE)
+# 
 
 # IMPORT - ONE OFF
 ###############################################################################

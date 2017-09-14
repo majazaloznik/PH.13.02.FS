@@ -10,13 +10,13 @@ country.codes  <- read.csv("data/country.codes.csv")
 ## some labeling lookup tables and colour palates
 
 palette7 <- c("lightpink", "chartreuse4", "olivedrab2",
-              "steelblue1", 
+              "skyblue", 
               "orangered1" )
 palette4 <- c("lightpink",
-              "springgreen3",
-              "yellow",
-              "goldenrod1")
-
+              "darkolivegreen3",
+              "gold",
+              "orchid4")
+FunFinalPlot(3)
 ###############################################################################
 ## PLOTS
 ###############################################################################

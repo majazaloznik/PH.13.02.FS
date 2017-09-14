@@ -16,12 +16,12 @@ palette4 <- c("lightpink",
               "darkolivegreen3",
               "gold",
               "orchid4")
-FunFinalPlot(3)
+
 ###############################################################################
 ## PLOTS
 ###############################################################################
 
-height = 5.5
+height = 5.3
 width = 10 
 par(xpd = TRUE)
 layout(matrix(c(1,2), nrow = 1))

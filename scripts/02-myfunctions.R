@@ -139,7 +139,7 @@ FunPlot7 <- function(i) {
   rect(rep(par("usr")[1]*1.2, 5), background7[1:5], 
        rep(par("usr")[2]*0.9, 5), 
        background7[2:6],
-       col = "white", density = 20, angle = 30, lwd = 3, border =NA)
+       col = "white", density = 15, angle = 30, lwd = 3, border =NA)
   
   barplot(as.matrix(bars7[2:3]),
           col = palette7, 
@@ -187,7 +187,7 @@ FunPlot4 <- function(i) {
   
   rect(rep(par("usr")[1]*1.2, 4), background4[1:4], rep(par("usr")[2]*0.9, 4), 
        background4[2:5],
-       col = "white", density = 20, angle = 30, lwd = 3, border =NA)
+       col = "white", density = 15, angle = 30, lwd = 3, border =NA)
   
   barplot(as.matrix(bars4[3:2]),
           col = palette4, 

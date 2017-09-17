@@ -37,6 +37,7 @@ for(i in 1:nrow(country.codes)) {
   x.gen <- cbind(x.gen, typology = "inter")
   x.un <- cbind(x.un, typology = "un")
   x <- rbind(x.gen, x.un)
+  x$hh.type <- factor(x$hh.type,levels(x$hh.type)[c(1:5,8,7,6)])
   x <- cbind(x, country.codes[i,])
   df <- rbind(df, x)
 }
@@ -67,6 +68,7 @@ FunPlotHalf <- function(cntry = "UnitedStates", typ = "un", grp= "old", pos = "r
   
   bars.back <- s.df %>% 
     filter(group == "total") %>% 
+    arrange(hh.type) %>% 
     pull(prop) %>% 
     cumsum %>% 
     c(0,.)
@@ -75,6 +77,7 @@ FunPlotHalf <- function(cntry = "UnitedStates", typ = "un", grp= "old", pos = "r
     filter(grepl(grp, group)) %>% 
     select(group, prop, hh.type) %>% 
     spread(group, prop) %>% 
+    arrange(hh.type) %>% 
     .[3:2] %>%  
     as.matrix()
    
@@ -117,20 +120,27 @@ FunPlotHalf <- function(cntry = "UnitedStates", typ = "un", grp= "old", pos = "r
  switch(pos,
         left = axis(4, las = 2),
         right = axis(2, labels = rep(NA,6)))
-
+  side.y <- switch(pos,
+                   right = bars.front[,2],
+                   left = bars.front[,1])
+  side.y <- (cumsum(side.y) + lag(cumsum(side.y), default = 0))/2  
+  
+  side.x <- switch(pos,
+                   right = par("usr")[2]+(par("usr")[2]-par("usr")[1])*0.3,
+                   left = par("usr")[1]-(par("usr")[2]-par("usr")[1])*0.3)
+  side.x <- switch(typ,
+                   un = rep(side.x, 4),
+                   inter = rep(side.x, 5))  
+  text(side.x, side.y, unique(s.df$hh.type))
 }
 
 FunPlotHalf(cntry = "Belarus",
             grp = "old",
-            typ = "inter",
+            typ = "un",
             pos = "left")
 FunPlotHalf(cntry = "Belarus",
             grp = "old",
-            typ = "un",
+            typ = "inter",
             pos = "right")
 
-    midpoints <- (cumsum(pull(bars7,3)) - lag(cumsum(pull(bars7,3)), default = 0))/2 + 
-    lag(cumsum(pull(bars7,3)), default = 0)
-  
-  text(rep(par("usr")[2], 5), midpoints7, letters[1:5])
 

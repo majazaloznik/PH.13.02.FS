@@ -3,6 +3,8 @@
 .RData
 .Ruserdata
 /data
+/data/whole\ countires
 /data-raw
 /poster
+/figures
 *.html

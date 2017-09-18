@@ -1,0 +1,77 @@
+code,label,gen
+1000,Head,0
+2000,Spouse/partner,0
+2100,Spouse,0
+2200,Unmarried partner,0
+2300,Same-sex spouse/partner,0
+3000,Child,1
+3100,Biological child,1
+3200,Adopted child,1
+3300,Stepchild,1
+3400,Child/child-in-law,1
+3500,Child/child-in-law/grandchild,1
+3600,Child of unmarried partner,1
+4000,Other relative,0
+4100,Grandchild,2
+4110,Grandchild or great grandchild,2
+4120,Great grandchild,3
+4130,Great-great grandchild,4
+4200,Parent/parent-in-law,-1
+4210,Parent,-1
+4211,Stepparent,-1
+4220,Parent-in-law,-1
+4300,Child-in-law,1
+4301,Daughter-in-law,1
+4302,Spouse/partner of child,1
+4310,Unmarried partner of child,1
+4400,Sibling/sibling-in-law,0
+4410,Sibling,0
+4420,Stepsibling,0
+4430,Sibling-in-law,0
+4431,Sibling of spouse/partner,0
+4432,Spouse/partner of sibling,0
+4500,Grandparent,-2
+4510,Great grandparent,-3
+4600,Parent/grandparent/ascendant,-5
+4700,Aunt/uncle,-1
+4800,Other specified relative,0
+4810,Nephew/niece,1
+4820,Cousin,0
+4830,Sibling of sibling-in-law,0
+4900,"Other relative, not elsewhere classified",0
+4910,Other relative with same family name,0
+4920,Other relative with different family name,0
+4930,"Other relative, not specified (secondary family)",0
+5000,Non-relative,NA
+5100,Friend/guest/visitor/partner,NA
+5110,Partner/friend,NA
+5111,Friend,NA
+5112,Partner/roommate,NA
+5113,Housemate/roommate,NA
+5120,Visitor,NA
+5130,Ex-spouse,0
+5140,Godparent,-1
+5150,Godchild,1
+5200,Employee,NA
+5210,Domestic employee,NA
+5220,"Relative of employee, n.s.",NA
+5221,Spouse of servant,NA
+5222,Child of servant,NA
+5223,Other relative of servant,NA
+5300,Roomer/boarder/lodger/foster child,NA
+5310,Boarder,NA
+5311,Boarder or guest,NA
+5320,Lodger,NA
+5330,Foster child,1
+5340,Tutored/foster child,1
+5350,Tutored child,1
+5400,"Employee, boarder or guest",NA
+5500,Other specified non-relative,NA
+5510,Agregado,NA
+5520,"Temporary resident, guest",NA
+5600,Group quarters,NA
+5610,"Group quarters, non-inmates",NA
+5620,Institutional inmates,NA
+5900,"Non-relative, n.e.c.",NA
+6000,Other relative or non-relative,NA
+9999,Unknown,NA

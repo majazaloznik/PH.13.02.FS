@@ -10,6 +10,7 @@ library(shiny)
 library(rfigshare)
 library(dplyr)
 library(tidyr)
+library(markdown)
 source("00-data-import.R", local = TRUE)
 
 
@@ -31,6 +32,7 @@ function(input, output, session) {
                 typ = input$typR,
                 pos = "right")
   })
+  
   output$table <- DT::renderDataTable(DT::datatable({
     data <- df %>% 
       dplyr::filter((country == input$cntryL &
@@ -40,13 +42,14 @@ function(input, output, session) {
                          (grepl(input$grpR, group) | group == "total") &
                          typology == input$typR))
     data
-  }))
+  },options = list( pageLength = nrow(data))))
   
   observeEvent(input$copyR, {
     updateSelectInput(session, "cntryR", selected = input$cntryL)
     updateSelectInput(session, "typR", selected = input$typL)
     updateSelectInput(session, "grpR", selected = input$grpL)
-  })  
+  }) 
+  
   observeEvent(input$copyL, {
     updateSelectInput(session, "cntryL", selected = input$cntryR)
     updateSelectInput(session, "typL", selected = input$typR)

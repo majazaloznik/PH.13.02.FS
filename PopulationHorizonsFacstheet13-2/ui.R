@@ -6,6 +6,7 @@
 ## ==== 00. preliminaries =====================================================
 library(shiny)
 library(DT)
+library(markdown)
 source("00-data-import.R", local = TRUE)
 
 ## ==== 01. ui  ===============================================================
@@ -16,7 +17,7 @@ fluidPage(
           # Application title
           titlePanel("Household Structure"),
           fluidRow(
-            column(4, offset = 1,
+            column(3, offset = 2,
                    selectInput('cntryL', 'Country 1', 
                                unique(levels(df$country))),
                    selectInput('typL', 'Classification of Households',
@@ -33,7 +34,7 @@ fluidPage(
                    actionButton("copyL", "<- Copy")
             ),
             
-            column(4,
+            column(3,
                    selectInput('cntryR', 'Country 2', unique(levels(df$country))),
                    selectInput('typR', 'Classification of Households',
                                c("UN Typology" = "un", 
@@ -48,7 +49,8 @@ fluidPage(
           
           # Show a plot comparing both countries
           # And .csv selection and download
-          mainPanel(width = 12,
+sidebarPanel(width =2),
+          mainPanel(width = 8, 
                     tabsetPanel(position = "left",
                                 tabPanel("Plot", plotOutput("distPlot")), 
                                 tabPanel("Table",  DT::dataTableOutput("table")),

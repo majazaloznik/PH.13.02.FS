@@ -30,4 +30,14 @@ is displayed as the *background* of each bar chart.
 The width of the two bars corresponds to the relative numbers of men and women in the relevant age groups, with the percentage given underneath. All proportions are based on weighted counts from IPUMS data. 
 
 
-Data Source: Minnesota Population Center (2017). *Integrated Public Use Microdata Series, International: Version 6.5* [dataset]. Minneapolis: Universityof Minnesota. data retrieved 16.6.2017 from http://doi.org/10.18128/D020.V6.5.
+*Data Source:* Minnesota Population Center (2017). *Integrated Public Use Microdata Series, International: Version 6.5* [dataset]. Minneapolis: Universityof Minnesota. data retrieved 16.6.2017 from http://doi.org/10.18128/D020.V6.5.
+
+*Author:* Maja Zaloznik
+
+*Paper Title:* Household Living Arrangements of Older People Proportions of over 60s by household type and intergenerational structure. in Population Horizons 2016, 13(2)
+
+*Data Deposit:* https://doi.org/10.6084/m9.figshare.5415055.v2
+
+*Code Deposit:* https://doi.org/10.6084/m9.figshare.5414995.v2
+
+*Project Repository:* https://github.com/majazaloznik/PH.13.02.FS

@@ -49,14 +49,17 @@ fluidPage(
           
           # Show a plot comparing both countries
           # And .csv selection and download
-sidebarPanel(width =2),
-          mainPanel(width = 8, 
-                    tabsetPanel(position = "left",
-                                tabPanel("Plot", plotOutput("distPlot")), 
-                                tabPanel("Table",  DT::dataTableOutput("table")),
-                                tabPanel("Summary", includeMarkdown("include.md"))
-                    )
-          )
+  sidebarPanel(width =2,
+               helpText("Compare household living arrangments across countries,
+                      ages, genders and classifications. Click on the Summary
+                      tab for more details.")),
+  mainPanel(width = 8, 
+            tabsetPanel(position = "left",
+                        tabPanel("Plot", plotOutput("distPlot")), 
+                        tabPanel("Table",  DT::dataTableOutput("table")),
+                        tabPanel("Summary", includeMarkdown("include.md"))
+            )
+  )
 )
 
 
